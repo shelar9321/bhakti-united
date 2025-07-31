@@ -1,0 +1,70 @@
+<p style="text-align:center; margin-top:20px;">
+  <a href="index.html">← Back to Homepage</a>
+</p>
+
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Register Your Mandal - Bhakti-United</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Bhakti-United</h1>
+    <h2>Register Your Mandal</h2>
+  </header>
+
+  <main>
+    <form id="mandal-form">
+      <label for="mandalName">Mandal Name:</label>
+      <input type="text" id="mandalName" required />
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" required />
+
+      <label for="contact">Contact Person:</label>
+      <input type="text" id="contact" required />
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" required />
+
+      <label for="about">About Mandal:</label>
+      <textarea id="about" rows="4"></textarea>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <div id="output"></div>
+  </main>
+
+  <script src="register.js"></script>
+</body>
+</html>
+// register.js
+
+document.getElementById('mandal-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+
+  const mandalName = document.getElementById('mandalName').value;
+  const location = document.getElementById('location').value;
+  const contact = document.getElementById('contact').value;
+  const phone = document.getElementById('phone').value;
+  const about = document.getElementById('about').value;
+
+  const output = `
+    <h3>Registration Successful!</h3>
+    <p><strong>Mandal Name:</strong> ${mandalName}</p>
+    <p><strong>Location:</strong> ${location}</p>
+    <p><strong>Contact Person:</strong> ${contact}</p>
+    <p><strong>Phone:</strong> ${phone}</p>
+    <p><strong>About:</strong> ${about}</p>
+  `;
+
+  document.getElementById('output').innerHTML = output;
+
+  // Clear the form
+  this.reset();
+});

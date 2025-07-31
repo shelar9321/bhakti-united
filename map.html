@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Find Mandals | Bhakti-United</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #map {
+      height: 400px;
+      width: 100%;
+      margin-top: 20px;
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📍 Mandal Map</h1>
+      <p>Explore Ganpati Mandals near your location</p>
+    </header>
+
+    <main>
+      <div id="map"></div>
+    </main>
+
+    <footer>
+      <p><a href="index.html">← Back to Home</a></p>
+    </footer>
+  </div>
+
+  <!-- Load Leaflet JS (open source map library) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-o9N1j8MkXAA7A6B47nfNp63N0GkF7c5GZiSY2c8y+Co="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j8MkXAA7A6B47nfNp63N0GkF7c5GZiSY2c8y+Co="
+    crossorigin=""
+  ></script>
+
+  <script>
+    // Initialize map
+    const map = L.map('map').setView([19.0760, 72.8777], 12); // Mumbai default
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Dummy mandal markers
+    const mandals = [
+      {
+        name: "Lalbaugcha Raja",
+        location: [19.0033, 72.8600]
+      },
+      {
+        name: "Andhericha Raja",
+        location: [19.1197, 72.8468]
+      },
+      {
+        name: "GSB Seva Mandal",
+        location: [19.0606, 72.8394]
+      }
+    ];
+
+    mandals.forEach((mandal) => {
+      L.marker(mandal.location)
+        .addTo(map)
+        .bindPopup(`<strong>${mandal.name}</strong>`)
+        .openPopup();
+    });
+  </script>
+</body>
+</html>
