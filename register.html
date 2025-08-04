@@ -43,28 +43,29 @@
   <script src="register.js"></script>
 </body>
 </html>
-// register.js
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('mandal-form').addEventListener('submit', function (e) {
+      e.preventDefault();
 
-document.getElementById('mandal-form').addEventListener('submit', function (e) {
-  e.preventDefault();
+      const mandalName = document.getElementById('mandalName').value;
+      const location = document.getElementById('location').value;
+      const contact = document.getElementById('contact').value;
+      const phone = document.getElementById('phone').value;
+      const about = document.getElementById('about').value;
 
-  const mandalName = document.getElementById('mandalName').value;
-  const location = document.getElementById('location').value;
-  const contact = document.getElementById('contact').value;
-  const phone = document.getElementById('phone').value;
-  const about = document.getElementById('about').value;
+      const output = `
+        <h3>Registration Successful!</h3>
+        <p><strong>Mandal Name:</strong> ${mandalName}</p>
+        <p><strong>Location:</strong> ${location}</p>
+        <p><strong>Contact Person:</strong> ${contact}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
+        <p><strong>About:</strong> ${about}</p>
+      `;
 
-  const output = `
-    <h3>Registration Successful!</h3>
-    <p><strong>Mandal Name:</strong> ${mandalName}</p>
-    <p><strong>Location:</strong> ${location}</p>
-    <p><strong>Contact Person:</strong> ${contact}</p>
-    <p><strong>Phone:</strong> ${phone}</p>
-    <p><strong>About:</strong> ${about}</p>
-  `;
+      document.getElementById('output').innerHTML = output;
+      this.reset();
+    });
+  });
+</script>
 
-  document.getElementById('output').innerHTML = output;
-
-  // Clear the form
-  this.reset();
-});
