@@ -3,77 +3,60 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Find Mandals | Bhakti-United</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>View Mandal Maps - Bhakti-United</title>
   <style>
-    #map {
-      height: 400px;
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff8e1;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #d84315;
+    }
+
+    .map-container {
+      margin: 30px auto;
+      max-width: 900px;
+      border: 3px solid #ffd54f;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    iframe {
       width: 100%;
-      margin-top: 20px;
-      border-radius: 12px;
+      height: 500px;
+      border: none;
+    }
+
+    .back-link {
+      display: block;
+      margin-bottom: 20px;
+      color: #0d47a1;
+      text-decoration: none;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>📍 Mandal Map</h1>
-      <p>Explore Ganpati Mandals near your location</p>
-    </header>
+  <a href="index.html" class="back-link">← Back to Homepage</a>
 
-    <main>
-      <div id="map"></div>
-    </main>
+  <h1>📍 View Mandal Locations</h1>
 
-    <footer>
-      <p><a href="index.html">← Back to Home</a></p>
-    </footer>
+  <div class="map-container">
+    <!-- Embedded Lalbaugcha Raja Map -->
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3772.6796391329303!2d72.83405942497514!3d18.98975063219723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf005a7ada0f%3A0xd4f35a67c5382161!2sLalbaugcha%20Raja!5e0!3m2!1sen!2sin!4v1754310693143!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
   </div>
-
-  <!-- Load Leaflet JS (open source map library) -->
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity="sha256-o9N1j8MkXAA7A6B47nfNp63N0GkF7c5GZiSY2c8y+Co="
-    crossorigin=""
-  />
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity="sha256-o9N1j8MkXAA7A6B47nfNp63N0GkF7c5GZiSY2c8y+Co="
-    crossorigin=""
-  ></script>
-
-  <script>
-    // Initialize map
-    const map = L.map('map').setView([19.0760, 72.8777], 12); // Mumbai default
-
-    // Add OpenStreetMap tiles
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
-
-    // Dummy mandal markers
-    const mandals = [
-      {
-        name: "Lalbaugcha Raja",
-        location: [19.0033, 72.8600]
-      },
-      {
-        name: "Andhericha Raja",
-        location: [19.1197, 72.8468]
-      },
-      {
-        name: "GSB Seva Mandal",
-        location: [19.0606, 72.8394]
-      }
-    ];
-
-    mandals.forEach((mandal) => {
-      L.marker(mandal.location)
-        .addTo(map)
-        .bindPopup(`<strong>${mandal.name}</strong>`)
-        .openPopup();
-    });
-  </script>
 </body>
 </html>
