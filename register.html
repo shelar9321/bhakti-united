@@ -1,23 +1,92 @@
-<p style="text-align:center; margin-top:20px;">
-  <a href="index.html">← Back to Homepage</a>
-</p>
-
-<!-- register.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register Your Mandal - Bhakti-United</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #fff8dc;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 20px;
+      background-color: #fffef2;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #ff6600;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #ff6600;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e65c00;
+    }
+
+    #output {
+      margin-top: 30px;
+      background: #fff0c4;
+      padding: 15px;
+      border-left: 5px solid #ff9900;
+      border-radius: 5px;
+    }
+
+    a {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-  <header>
+  <div class="container">
     <h1>Bhakti-United</h1>
+    <a href="index.html">&larr; Back to Homepage</a>
     <h2>Register Your Mandal</h2>
-  </header>
 
-  <main>
     <form id="mandal-form">
       <label for="mandalName">Mandal Name:</label>
       <input type="text" id="mandalName" required />
@@ -32,40 +101,38 @@
       <input type="tel" id="phone" required />
 
       <label for="about">About Mandal:</label>
-      <textarea id="about" rows="4"></textarea>
+      <textarea id="about" rows="4" required></textarea>
 
       <button type="submit">Register</button>
     </form>
 
     <div id="output"></div>
-  </main>
+  </div>
 
-  <script src="register.js"></script>
-</body>
-</html>
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('mandal-form').addEventListener('submit', function (e) {
+  <script>
+    const form = document.getElementById('mandal-form');
+    const output = document.getElementById('output');
+
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const mandalName = document.getElementById('mandalName').value;
+      const name = document.getElementById('mandalName').value;
       const location = document.getElementById('location').value;
       const contact = document.getElementById('contact').value;
       const phone = document.getElementById('phone').value;
       const about = document.getElementById('about').value;
 
-      const output = `
+      output.innerHTML = `
         <h3>Registration Successful!</h3>
-        <p><strong>Mandal Name:</strong> ${mandalName}</p>
+        <p><strong>Mandal Name:</strong> ${name}</p>
         <p><strong>Location:</strong> ${location}</p>
         <p><strong>Contact Person:</strong> ${contact}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>About:</strong> ${about}</p>
+        <p><strong>Phone Number:</strong> ${phone}</p>
+        <p><strong>About Mandal:</strong> ${about}</p>
       `;
 
-      document.getElementById('output').innerHTML = output;
-      this.reset();
+      form.reset();
     });
-  });
-</script>
-
+  </script>
+</body>
+</html>
