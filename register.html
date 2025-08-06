@@ -5,38 +5,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register Mandal</title>
   <link rel="stylesheet" href="style.css">
+
   <script>
     function validateForm(event) {
-      event.preventDefault();
+      event.preventDefault(); // stop form from submitting
 
       const mandalName = document.getElementById("mandalName").value.trim();
       const location = document.getElementById("location").value.trim();
-      const Person = document.getElementById("person").value.trim();
+      const contact = document.getElementById("contact").value.trim();
       const phone = document.getElementById("phone").value.trim();
       const about = document.getElementById("about").value.trim();
 
-      // Simple validations
-      if (!mandalName || !location || !Person || !phone || !about) {
-        alert("All fields are required!");
+      // Check if all fields are filled
+      if (!mandalName || !location || !contact || !phone || !about) {
+        alert("Please fill out all fields before registering!");
         return false;
       }
 
-      // Phone number validation (only digits, 10 numbers)
+      // Phone number validation
       const phonePattern = /^[0-9]{10}$/;
       if (!phonePattern.test(phone)) {
-        alert("Please enter a valid 10-digit phone number.");
+        alert("Enter a valid 10-digit phone number.");
         return false;
       }
 
-      // Name validation (only letters and spaces)
+      // Contact name validation
       const namePattern = /^[A-Za-z\s]+$/;
       if (!namePattern.test(contact)) {
-        alert("Contact name should only contain letters.");
+        alert("Contact name should contain only letters.");
         return false;
       }
 
-      alert("Registration successful!");
+      // If all checks pass
+      alert("Registration Successful!");
       document.getElementById("mandal-form").reset();
+      return true;
     }
   </script>
 </head>
@@ -44,14 +47,14 @@
   <h1>Bhakti-United</h1>
   <h2>Register Your Mandal</h2>
 
-  <form id="mandal-form" onsubmit="validateForm(event)">
+  <form id="mandal-form" onsubmit="return validateForm(event)">
     <label>Mandal Name:</label>
     <input type="text" id="mandalName"><br><br>
 
     <label>Location:</label>
     <input type="text" id="location"><br><br>
 
-    <label>Person Name:</label>
+    <label>Contact Person:</label>
     <input type="text" id="contact"><br><br>
 
     <label>Phone Number:</label>
