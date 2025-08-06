@@ -76,6 +76,9 @@
       <label for="mandalName">Mandal Name</label>
       <input type="text" id="mandalName" placeholder="Enter mandal name" />
 
+      <label for="headName">Head of Mandal</label>
+      <input type="text" id="headName" placeholder="Enter head of mandal name" />
+
       <label for="location">Location</label>
       <input type="text" id="location" placeholder="Enter location" />
 
@@ -94,11 +97,12 @@
       event.preventDefault();
 
       const name = document.getElementById("mandalName").value.trim();
+      const head = document.getElementById("headName").value.trim();
       const location = document.getElementById("location").value.trim();
       const contact = document.getElementById("contact").value.trim();
       const about = document.getElementById("about").value.trim();
 
-      if (!name || !location || !contact || !about) {
+      if (!name || !head || !location || !contact || !about) {
         alert("All fields are required.");
         return false;
       }
