@@ -89,19 +89,19 @@
     <h2>Register Your Mandal</h2>
     <form id="mandalForm">
       <label for="mandalName">Mandal Name</label>
-      <input type="text" id="mandalName" placeholder="Enter mandal name" required />
+      <input type="text" id="mandalName" placeholder="Enter mandal name" />
 
       <label for="headName">Head of Mandal</label>
-      <input type="text" id="headName" placeholder="Enter head of mandal name" required />
+      <input type="text" id="headName" placeholder="Enter head of mandal name" />
 
       <label for="location">Location</label>
-      <input type="text" id="location" placeholder="Enter location" required />
+      <input type="text" id="location" placeholder="Enter location" />
 
       <label for="contact">Contact Number</label>
-      <input type="tel" id="contact" placeholder="Enter contact number" required />
+      <input type="tel" id="contact" placeholder="Enter contact number" />
 
       <label for="about">About Mandal</label>
-      <textarea id="about" rows="4" placeholder="Enter details" required></textarea>
+      <textarea id="about" rows="4" placeholder="Enter details"></textarea>
 
       <button type="submit">Register</button>
     </form>
@@ -110,6 +110,7 @@
   <script>
     document.getElementById('mandalForm').addEventListener('submit', function (e) {
       e.preventDefault();
+
       const mandalName = document.getElementById('mandalName').value.trim();
       const headName = document.getElementById('headName').value.trim();
       const location = document.getElementById('location').value.trim();
@@ -117,11 +118,18 @@
       const about = document.getElementById('about').value.trim();
 
       if (!mandalName || !headName || !location || !contact || !about) {
-        alert('Please fill out all fields before submitting.');
+        alert('⚠️ Please fill out all fields before submitting.');
         return;
       }
 
-      alert('Registration Successful for ' + mandalName + '!');
+      // Check if contact is a number and has 10 digits
+      const phonePattern = /^[0-9]{10}$/;
+      if (!phonePattern.test(contact)) {
+        alert('⚠️ Contact number must be a 10-digit number.');
+        return;
+      }
+
+      alert('✅ Registration Successful for ' + mandalName + '!');
       this.reset();
     });
   </script>
