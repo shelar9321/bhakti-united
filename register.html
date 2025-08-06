@@ -1,115 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Register Your Mandal - Bhakti-United</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
-      margin: 0;
       font-family: Arial, sans-serif;
-      background-color: #f8f9fa;
-    }
-
-    header {
-      background-color: #ffd700;
-      text-align: center;
-      padding: 20px;
-    }
-
-    header h1 {
+      background-color: #f8f8f8;
       margin: 0;
-      font-size: 28px;
-      color: #4a0072;
+      padding: 0;
     }
 
-    .container {
-      max-width: 450px;
+    .header {
+      background-color: #FFD700;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+      color: #4B0082;
+    }
+
+    .form-container {
+      max-width: 500px;
       margin: 40px auto;
       background: #fff;
-      padding: 30px 25px;
-      border-radius: 12px;
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     }
 
     h2 {
       text-align: center;
-      color: #4a0072;
-      margin-bottom: 25px;
+      color: #4B0082;
+      margin-bottom: 20px;
     }
 
     label {
       font-weight: bold;
       display: block;
-      margin-bottom: 6px;
-      color: #333;
+      margin: 10px 0 5px;
     }
 
-    input,
-    textarea {
-      width: calc(100% - 10px);
-      padding: 12px 14px;
-      margin-bottom: 16px;
-      border: 2px solid #ddd;
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
       border-radius: 6px;
-      font-size: 15px;
-      transition: 0.3s;
-      outline: none;
-    }
-
-    input:focus,
-    textarea:focus {
-      border-color: #4a0072;
-      box-shadow: 0px 0px 5px rgba(74, 0, 114, 0.3);
+      border: 1px solid #ccc;
+      box-sizing: border-box;
     }
 
     button {
       width: 100%;
-      padding: 14px;
-      background-color: #4a0072;
+      padding: 12px;
+      background-color: #4B0082;
+      color: #fff;
       border: none;
       border-radius: 6px;
-      color: #fff;
       font-size: 16px;
       cursor: pointer;
-      transition: background 0.3s;
     }
 
     button:hover {
-      background-color: #360052;
+      background-color: #360060;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>🙏 Bhakti-United</h1>
-  </header>
 
-  <div class="container">
+  <div class="header">🙏 Bhakti-United</div>
+
+  <div class="form-container">
     <h2>Register Your Mandal</h2>
     <form id="mandalForm">
       <label for="mandalName">Mandal Name</label>
-      <input type="text" id="mandalName" placeholder="Enter mandal name" />
+      <input type="text" id="mandalName" maxlength="50" placeholder="Enter mandal name">
 
       <label for="headName">Head of Mandal</label>
-      <input type="text" id="headName" placeholder="Enter head of mandal name" />
+      <input type="text" id="headName" maxlength="50" placeholder="Enter head of mandal">
 
       <label for="location">Location</label>
-      <input type="text" id="location" placeholder="Enter location" />
+      <input type="text" id="location" maxlength="50" placeholder="Enter location">
 
       <label for="contact">Contact Number</label>
-      <input type="tel" id="contact" placeholder="Enter contact number" />
+      <input type="text" id="contact" maxlength="10" placeholder="Enter contact number">
 
       <label for="about">About Mandal</label>
-      <textarea id="about" rows="4" placeholder="Enter details"></textarea>
+      <textarea id="about" maxlength="200" placeholder="Enter details"></textarea>
 
       <button type="submit">Register</button>
     </form>
   </div>
 
   <script>
-    document.getElementById('mandalForm').addEventListener('submit', function (e) {
-      e.preventDefault();
+    document.getElementById('mandalForm').addEventListener('submit', function(event) {
+      event.preventDefault();
 
       const mandalName = document.getElementById('mandalName').value.trim();
       const headName = document.getElementById('headName').value.trim();
@@ -118,20 +105,19 @@
       const about = document.getElementById('about').value.trim();
 
       if (!mandalName || !headName || !location || !contact || !about) {
-        alert('⚠️ Please fill out all fields before submitting.');
+        alert('All fields are required!');
         return;
       }
 
-      // Check if contact is a number and has 10 digits
-      const phonePattern = /^[0-9]{10}$/;
-      if (!phonePattern.test(contact)) {
-        alert('⚠️ Contact number must be a 10-digit number.');
+      if (!/^\d{10}$/.test(contact)) {
+        alert('Please enter a valid 10-digit contact number.');
         return;
       }
 
-      alert('✅ Registration Successful for ' + mandalName + '!');
+      alert('Mandal Registered Successfully!');
       this.reset();
     });
   </script>
+
 </body>
 </html>
