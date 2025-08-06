@@ -1,138 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Register Your Mandal - Bhakti-United</title>
-  <style>
-    body {
-      background-color: #fff8dc;
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      color: #333;
-    }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Mandal</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function validateForm(event) {
+      event.preventDefault();
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-      padding: 20px;
-      background-color: #fffef2;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    }
+      const mandalName = document.getElementById("mandalName").value.trim();
+      const location = document.getElementById("location").value.trim();
+      const Person = document.getElementById("person").value.trim();
+      const phone = document.getElementById("phone").value.trim();
+      const about = document.getElementById("about").value.trim();
 
-    h1 {
-      color: #ff6600;
-      text-align: center;
-    }
+      // Simple validations
+      if (!mandalName || !location || !Person || !phone || !about) {
+        alert("All fields are required!");
+        return false;
+      }
 
-    h2 {
-      margin-bottom: 20px;
-    }
+      // Phone number validation (only digits, 10 numbers)
+      const phonePattern = /^[0-9]{10}$/;
+      if (!phonePattern.test(phone)) {
+        alert("Please enter a valid 10-digit phone number.");
+        return false;
+      }
 
-    label {
-      display: block;
-      margin-top: 15px;
-      font-weight: bold;
-    }
+      // Name validation (only letters and spaces)
+      const namePattern = /^[A-Za-z\s]+$/;
+      if (!namePattern.test(contact)) {
+        alert("Contact name should only contain letters.");
+        return false;
+      }
 
-    input, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box;
+      alert("Registration successful!");
+      document.getElementById("mandal-form").reset();
     }
-
-    button {
-      margin-top: 20px;
-      background-color: #ff6600;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #e65c00;
-    }
-
-    #output {
-      margin-top: 30px;
-      background: #fff0c4;
-      padding: 15px;
-      border-left: 5px solid #ff9900;
-      border-radius: 5px;
-    }
-
-    a {
-      display: inline-block;
-      margin-bottom: 20px;
-      color: #0066cc;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  </style>
+  </script>
 </head>
 <body>
-  <div class="container">
-    <h1>Bhakti-United</h1>
-    <a href="index.html">&larr; Back to Homepage</a>
-    <h2>Register Your Mandal</h2>
+  <h1>Bhakti-United</h1>
+  <h2>Register Your Mandal</h2>
 
-    <form id="mandal-form">
-      <label for="mandalName">Mandal Name:</label>
-      <input type="text" id="mandalName" required />
+  <form id="mandal-form" onsubmit="validateForm(event)">
+    <label>Mandal Name:</label>
+    <input type="text" id="mandalName"><br><br>
 
-      <label for="location">Location:</label>
-      <input type="text" id="location" required />
+    <label>Location:</label>
+    <input type="text" id="location"><br><br>
 
-      <label for="contact">Contact Person:</label>
-      <input type="text" id="contact" required />
+    <label>Person Name:</label>
+    <input type="text" id="contact"><br><br>
 
-      <label for="phone">Phone Number:</label>
-      <input type="tel" id="phone" required />
+    <label>Phone Number:</label>
+    <input type="text" id="phone"><br><br>
 
-      <label for="about">About Mandal:</label>
-      <textarea id="about" rows="4" required></textarea>
+    <label>About Mandal:</label>
+    <textarea id="about"></textarea><br><br>
 
-      <button type="submit">Register</button>
-    </form>
-
-    <div id="output"></div>
-  </div>
-
-  <script>
-    const form = document.getElementById('mandal-form');
-    const output = document.getElementById('output');
-
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const name = document.getElementById('mandalName').value;
-      const location = document.getElementById('location').value;
-      const contact = document.getElementById('contact').value;
-      const phone = document.getElementById('phone').value;
-      const about = document.getElementById('about').value;
-
-      output.innerHTML = `
-        <h3>Registration Successful!</h3>
-        <p><strong>Mandal Name:</strong> ${name}</p>
-        <p><strong>Location:</strong> ${location}</p>
-        <p><strong>Contact Person:</strong> ${contact}</p>
-        <p><strong>Phone Number:</strong> ${phone}</p>
-        <p><strong>About Mandal:</strong> ${about}</p>
-      `;
-
-      form.reset();
-    });
-  </script>
+    <button type="submit">Register</button>
+  </form>
 </body>
 </html>
