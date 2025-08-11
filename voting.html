@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandap Voting & Waiting Time</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .mandal {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .mandal button {
+            padding: 8px 12px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .mandal button:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+        .waiting-time {
+            margin-top: 20px;
+        }
+        .waiting-time input {
+            padding: 5px;
+            margin-right: 5px;
+        }
+        .time-display {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Mandap Voting</h1>
+    <div id="mandalList"></div>
+
+    <h2>Live Waiting Time Update</h2>
+    <div class="waiting-time">
+        <select id="mandalSelect"></select>
+        <input type="number" id="waitingInput" placeholder="Enter waiting time (mins)">
+        <button onclick="updateWaitingTime()">Update</button>
+    </div>
+
+    <h2>Current Waiting Times</h2>
+    <div id="waitingTimesDisplay"></div>
+</div>
+
+<script>
+    // Sample Mandals
+    const mandals = [
+        { name: "Shree Siddhivinayak Mandal" },
+        { name: "Lalbaugcha Raja Mandal" },
+        { name: "Ganesh Galli Mandal" }
+    ];
+
+    // Load data from localStorage
+    let votes = JSON.parse(localStorage.getItem('votes')) || {};
+    let waitingTimes = JSON.parse(localStorage.getItem('waitingTimes')) || {};
+
+    const mandalList = document.getElementById('mandalList');
+    const mandalSelect = document.getElementById('mandalSelect');
+    const waitingTimesDisplay = document.getElementById('waitingTimesDisplay');
+
+    function renderMandals() {
+        mandalList.innerHTML = '';
+        mandalSelect.innerHTML = '';
+        mandals.forEach(mandal => {
+            // Voting UI
+            const div = document.createElement('div');
+            div.classList.add('mandal');
+            div.innerHTML = `
+                <span>${mandal.name} - Votes: ${votes[mandal.name] || 0}</span>
+                <button ${localStorage.getItem('votedFor') === mandal.name ? 'disabled' : ''} onclick="vote('${mandal.name}')">Vote</button>
+            `;
+            mandalList.appendChild(div);
+
+            // Waiting time dropdown
+            const option = document.createElement('option');
+            option.value = mandal.name;
+            option.textContent = mandal.name;
+            mandalSelect.appendChild(option);
+        });
+        renderWaitingTimes();
+    }
+
+    function vote(mandalName) {
+        if (localStorage.getItem('votedFor')) {
+            alert("You have already voted!");
+            return;
+        }
+        votes[mandalName] = (votes[mandalName] || 0) + 1;
+        localStorage.setItem('votes', JSON.stringify(votes));
+        localStorage.setItem('votedFor', mandalName);
+        renderMandals();
+    }
+
+    function updateWaitingTime() {
+        const mandalName = mandalSelect.value;
+        const time = document.getElementById('waitingInput').value;
+        if (!time) {
+            alert("Please enter waiting time");
+            return;
+        }
+        waitingTimes[mandalName] = time;
+        localStorage.setItem('waitingTimes', JSON.stringify(waitingTimes));
+        renderWaitingTimes();
+        document.getElementById('waitingInput').value = '';
+    }
+
+    function renderWaitingTimes() {
+        waitingTimesDisplay.innerHTML = '';
+        for (let mandal in waitingTimes) {
+            const p = document.createElement('p');
+            p.classList.add('time-display');
+            p.textContent = `${mandal}: ${waitingTimes[mandal]} mins`;
+            waitingTimesDisplay.appendChild(p);
+        }
+    }
+
+    renderMandals();
+</script>
+
+</body>
+</html>
