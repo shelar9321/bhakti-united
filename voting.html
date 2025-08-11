@@ -1,169 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ganpati Mandal Voting & Waiting Time</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f8f8f8;
-      color: #333;
-    }
-    header {
-      background: #ff9800;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      font-size: 24px;
-      font-weight: bold;
-    }
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-      margin-top: 20px;
-    }
-    h2 {
-      text-align: center;
-      color: #ff9800;
-    }
-    select, input, button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-    button {
-      background: #ff9800;
-      color: white;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    button:hover {
-      background: #e68900;
-    }
-    .result, .waiting-display {
-      background: #fff3cd;
-      padding: 10px;
-      border-radius: 5px;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    .mandal-list {
-      list-style: none;
-      padding: 0;
-    }
-    .mandal-list li {
-      background: #e8e8e8;
-      margin: 5px 0;
-      padding: 10px;
-      border-radius: 5px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote for Your Favorite Mandal</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <h1>Vote for Your Favorite Ganpati Mandal</h1>
 
-<header>Ganpati Mandal Voting & Waiting Time</header>
+    <div id="mandal-list">
+        <div class="mandal">
+            <h3>Shree Siddhivinayak Mandal</h3>
+            <button onclick="vote('Shree Siddhivinayak Mandal')">Vote</button>
+            <p>Votes: <span id="votes-Shree Siddhivinayak Mandal">0</span></p>
 
-<div class="container">
-  <!-- Voting Section -->
-  <h2>Vote for Your Favorite Mandal</h2>
-  <select id="mandalSelect">
-    <option value="">-- Select Mandal --</option>
-    <option value="Mandal A">Mandal A</option>
-    <option value="Mandal B">Mandal B</option>
-    <option value="Mandal C">Mandal C</option>
-  </select>
-  <button onclick="voteMandal()">Vote</button>
-  <div id="voteResult" class="result"></div>
+            <label>Update Waiting Time (mins):</label>
+            <input type="number" id="wait-Shree Siddhivinayak Mandal" min="0">
+            <button onclick="updateWaitTime('Shree Siddhivinayak Mandal')">Update</button>
+            <p>Waiting Time: <span id="waiting-Shree Siddhivinayak Mandal">0</span> mins</p>
+        </div>
 
-  <h3>Current Votes</h3>
-  <ul id="voteList" class="mandal-list"></ul>
-</div>
+        <div class="mandal">
+            <h3>Lalbaugcha Raja</h3>
+            <button onclick="vote('Lalbaugcha Raja')">Vote</button>
+            <p>Votes: <span id="votes-Lalbaugcha Raja">0</span></p>
 
-<div class="container">
-  <!-- Waiting Time Section -->
-  <h2>Update Waiting Time</h2>
-  <select id="waitingMandalSelect">
-    <option value="">-- Select Mandal --</option>
-    <option value="Mandal A">Mandal A</option>
-    <option value="Mandal B">Mandal B</option>
-    <option value="Mandal C">Mandal C</option>
-  </select>
-  <input type="number" id="waitingTime" placeholder="Enter waiting time in minutes">
-  <button onclick="updateWaitingTime()">Update Waiting Time</button>
-  <div id="waitingResult" class="waiting-display"></div>
+            <label>Update Waiting Time (mins):</label>
+            <input type="number" id="wait-Lalbaugcha Raja" min="0">
+            <button onclick="updateWaitTime('Lalbaugcha Raja')">Update</button>
+            <p>Waiting Time: <span id="waiting-Lalbaugcha Raja">0</span> mins</p>
+        </div>
+    </div>
 
-  <h3>Live Waiting Times</h3>
-  <ul id="waitingList" class="mandal-list"></ul>
-</div>
-
-<script>
-  // VOTING MODULE
-  let votes = JSON.parse(localStorage.getItem('votes')) || {};
-
-  function voteMandal() {
-    let mandal = document.getElementById("mandalSelect").value;
-    if (!mandal) {
-      document.getElementById("voteResult").innerHTML = "Please select a mandal.";
-      return;
-    }
-
-    votes[mandal] = (votes[mandal] || 0) + 1;
-    localStorage.setItem('votes', JSON.stringify(votes));
-
-    document.getElementById("voteResult").innerHTML = `Thank you! Your vote for <b>${mandal}</b> has been recorded.`;
-    displayVotes();
-  }
-
-  function displayVotes() {
-    let voteList = document.getElementById("voteList");
-    voteList.innerHTML = "";
-    for (let mandal in votes) {
-      voteList.innerHTML += `<li>${mandal}: ${votes[mandal]} votes</li>`;
-    }
-  }
-
-  // WAITING TIME MODULE
-  let waitingTimes = JSON.parse(localStorage.getItem('waitingTimes')) || {};
-
-  function updateWaitingTime() {
-    let mandal = document.getElementById("waitingMandalSelect").value;
-    let time = document.getElementById("waitingTime").value;
-
-    if (!mandal || !time) {
-      document.getElementById("waitingResult").innerHTML = "Please select a mandal and enter time.";
-      return;
-    }
-
-    waitingTimes[mandal] = time;
-    localStorage.setItem('waitingTimes', JSON.stringify(waitingTimes));
-
-    document.getElementById("waitingResult").innerHTML = `Waiting time for <b>${mandal}</b> updated to <b>${time} minutes</b>.`;
-    displayWaitingTimes();
-  }
-
-  function displayWaitingTimes() {
-    let waitingList = document.getElementById("waitingList");
-    waitingList.innerHTML = "";
-    for (let mandal in waitingTimes) {
-      waitingList.innerHTML += `<li>${mandal}: ${waitingTimes[mandal]} minutes</li>`;
-    }
-  }
-
-  // Initial Load
-  displayVotes();
-  displayWaitingTimes();
-</script>
-
+    <script src="voting.js"></script>
 </body>
 </html>
